@@ -47,7 +47,7 @@ final class ChannelUsereventTest extends TestCase
         $this->assertSame('ExampleEvent', $channelUserEvent->getEventname());
         $this->assertInstanceOf(Bridge::class, $channelUserEvent->getBridge());
         $this->assertIsObject($channelUserEvent->getUserevent());
-        $this->assertObjectHasAttribute('someEvent', $channelUserEvent->getUserevent());
+        $this->assertObjectHasProperty('someEvent', $channelUserEvent->getUserevent());
         $this->assertSame('someValue', $channelUserEvent->getUserevent()->someEvent);
         $this->assertInstanceOf(Endpoint::class, $channelUserEvent->getEndpoint());
         $this->assertInstanceOf(Channel::class, $channelUserEvent->getChannel());

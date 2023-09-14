@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace OpiyOrg\AriClient\Tests\Client\WebSocket\Ratchet;
 
+use React\Socket\ConnectionInterface;
 use OpiyOrg\AriClient\Client\WebSocket\Ratchet\{Settings as RatchetSettings, WebSocketClient};
 use OpiyOrg\AriClient\Client\WebSocket\Settings;
 use OpiyOrg\AriClient\StasisApplicationInterface;
@@ -35,7 +36,7 @@ class WebSocketClientTest extends TestCase
         );
 
         $promiseInterface = $this->createMock(PromiseInterface::class);
-        $promiseInterface->method('then')->willReturn(true);
+//        $promiseInterface->method('then')->willReturn(true);
 
         $ratchetConnector = $this->createMock(RatchetConnector::class);
         $ratchetConnector->method('__invoke')->willReturn($promiseInterface);
@@ -79,7 +80,7 @@ class WebSocketClientTest extends TestCase
         );
 
         $promiseInterface = $this->createMock(PromiseInterface::class);
-        $promiseInterface->method('then')->willReturn(true);
+//        $promiseInterface->method('then')->willReturn(true);
 
         $ratchetConnector = $this->createMock(RatchetConnector::class);
         $ratchetConnector->method('__invoke')->willReturn($promiseInterface);

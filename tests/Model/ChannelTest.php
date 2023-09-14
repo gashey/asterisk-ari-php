@@ -59,9 +59,9 @@ final class ChannelTest extends TestCase
         $this->assertSame('SIP/foo-0000a7e3', $channel->getName());
         $this->assertSame('123456', $channel->getId());
         $this->assertSame('en', $channel->getLanguage());
-        $this->assertObjectHasAttribute('testVar', $channel->getChannelvars());
+        $this->assertObjectHasProperty('testVar', $channel->getChannelvars());
         $this->assertSame('correct', $channel->getChannelvars()->testVar);
-        $this->assertObjectHasAttribute('testVar2', $channel->getChannelvars());
+        $this->assertObjectHasProperty('testVar2', $channel->getChannelvars());
         $this->assertSame('nope', $channel->getChannelvars()->testVar2);
         $this->assertSame('Up', $channel->getState());
         $this->assertInstanceOf(CallerID::class, $channel->getConnected());
