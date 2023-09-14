@@ -12,3 +12,4 @@ parameters:
             - "#Method [a-zA-Z0-9\\_\\\\:\\(\\)]+ return type has no value type specified in iterable type array#"
             - "#Property [a-zA-Z0-9\\$\\_\\\\:\\(\\)]+ type has no value type specified in iterable type array#"
             - "#Call to an undefined method ReflectionType\\:\\:getName\\(\\)#"
+            - "#Parameter \\#2 \\$onRejected of method React\\\\Promise\\\\PromiseInterface<mixed>::then\\(\\) expects \\(callable\\(Throwable\\): \\(React\\\\Promise\\\\PromiseInterface<void>\\|void\\)\\)\\|null, Closure\\(Exception\\): void given.#"
