@@ -35,7 +35,7 @@ class WebSocketClientTest extends TestCase
         );
 
         $promiseInterface = $this->createMock(PromiseInterface::class);
-        $promiseInterface->method('then')->willReturn(true);
+        $promiseInterface->method('then')->willReturn($promiseInterface);
 
         $ratchetConnector = $this->createMock(RatchetConnector::class);
         $ratchetConnector->method('__invoke')->willReturn($promiseInterface);
@@ -79,7 +79,7 @@ class WebSocketClientTest extends TestCase
         );
 
         $promiseInterface = $this->createMock(PromiseInterface::class);
-        $promiseInterface->method('then')->willReturn(true);
+        $promiseInterface->method('then')->willReturn($promiseInterface);
 
         $ratchetConnector = $this->createMock(RatchetConnector::class);
         $ratchetConnector->method('__invoke')->willReturn($promiseInterface);
