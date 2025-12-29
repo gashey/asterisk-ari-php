@@ -8,13 +8,6 @@ namespace OpiyOrg\AriClient\Client\WebSocket;
 
 use React\EventLoop\LoopInterface;
 
-/**
- * Define the basic features a web socket client implementation must offer.
- *
- * @package OpiyOrg\AriClient\Client\WebSocket
- *
- * @author Lukas Stermann <lukas@ng-voice.com>
- */
 interface WebSocketClientInterface
 {
     /**
@@ -28,11 +21,4 @@ interface WebSocketClientInterface
      * and listen for specific incoming events.
      */
     public function start(): void;
-
-    /**
-     * Get the event loop.
-     *
-     * @return LoopInterface
-     */
-    public function getLoop(): LoopInterface;
 }

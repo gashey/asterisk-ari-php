@@ -17,11 +17,15 @@ declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/MyExampleStasisApp.php';
 
-use OpiyOrg\AriClient\Client\Rest\Resource\{Channels as AriChannelsRestResourceClient,
-    Events as AriEventsResourceRestClient};
+use OpiyOrg\AriClient\Client\Rest\Resource\{
+    Channels as AriChannelsRestResourceClient,
+    Events as AriEventsResourceRestClient
+};
 use OpiyOrg\AriClient\Client\Rest\Settings as AriRestClientSettings;
-use OpiyOrg\AriClient\Client\WebSocket\{Factory as AriWebSocketClientFactory,
-    Settings as AriWebSocketClientSettings};
+use OpiyOrg\AriClient\Client\WebSocket\{
+    Factory as AriWebSocketClientFactory,
+    Settings as AriWebSocketClientSettings
+};
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -67,8 +71,8 @@ $ariWebSocketClient = AriWebSocketClientFactory::create(
 $ariEventsRestClient = new AriEventsResourceRestClient($ariRestClientSettings);
 
 // Trigger an example ChannelUserevent every few seconds to see terminal output
-$ariWebSocketClient->getLoop()->addPeriodicTimer(
-    3,
+\Swoole\Timer::tick(
+    3000,
     static function () use ($ariEventsRestClient) {
         $ariEventsRestClient->userEvent(
             'ThisEventIsTriggeredByYourself',

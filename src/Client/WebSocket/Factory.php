@@ -6,8 +6,9 @@ declare(strict_types=1);
 
 namespace OpiyOrg\AriClient\Client\WebSocket;
 
-use OpiyOrg\AriClient\Client\WebSocket\Ratchet\{Settings as OptionalRatchetSettings,
-    WebSocketClient as RatchetWebSocketClient
+use OpiyOrg\AriClient\Client\WebSocket\Swoole\{
+    Settings as OptionalSwooleSettings,
+    WebSocketClient as SwooleWebSocketClient
 };
 use OpiyOrg\AriClient\StasisApplicationInterface;
 
@@ -36,32 +37,32 @@ class Factory
         Settings $ariWebSocketClientSettings,
         StasisApplicationInterface $myStasisApp
     ): WebSocketClientInterface {
-        return self::createRatchet($ariWebSocketClientSettings, $myStasisApp);
+        return self::createSwoole($ariWebSocketClientSettings, $myStasisApp);
     }
 
     /**
-     * Create an instance of the Ratchet web socket client implementation.
+     * Create an instance of the Swoole web socket client implementation.
      *
      * @param Settings $ariWebSocketClientSettings The
      * web socket client settings
      * @param StasisApplicationInterface $myStasisApp Your Stasis app
      * that shall register within the connected Asterisk instance
-     * @param OptionalRatchetSettings|null $optionalRatchetSettings Optional
-     * settings for the specific Ratchet implementation of the web socket
+     * @param OptionalSwooleSettings|null $optionalSwooleSettings Optional
+     * settings for the specific Swoole implementation of the web socket
      * client
      *
-     * @return RatchetWebSocketClient The ratchet web socket client
+     * @return SwooleWebSocketClient The swoole web socket client
      * implementation.
      */
-    public static function createRatchet(
+    public static function createSwoole(
         Settings $ariWebSocketClientSettings,
         StasisApplicationInterface $myStasisApp,
-        ?OptionalRatchetSettings $optionalRatchetSettings = null
-    ): RatchetWebSocketClient {
-        return new RatchetWebSocketClient(
+        ?OptionalSwooleSettings $optionalSwooleSettings = null
+    ): SwooleWebSocketClient {
+        return new SwooleWebSocketClient(
             $ariWebSocketClientSettings,
             $myStasisApp,
-            $optionalRatchetSettings
+            $optionalSwooleSettings
         );
     }
 }

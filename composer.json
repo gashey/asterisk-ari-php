@@ -10,7 +10,9 @@
     "client",
     "stasisapp",
     "telephone",
-    "pbx"
+    "pbx",
+    "laravel",
+    "swoole"
   ],
   "homepage": "https://bitbucket.org/ngvoice/asterisk-ari-client",
   "license": "MIT",
@@ -31,9 +33,10 @@
     "php": "^8.1|^8.2|^8.3",
     "monolog/monolog": "~1.0|~2.0|~3.0",
     "guzzlehttp/guzzle": "^7.0",
-    "ratchet/pawl": "~0.3",
     "ext-json": "*",
-    "cuyz/valinor": "^1.10"
+    "ext-swoole": "*",
+    "cuyz/valinor": "^1.10",
+    "illuminate/support": "^10.0|^11.0"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
@@ -52,6 +55,13 @@
   "autoload-dev": {
     "psr-4": {
       "OpiyOrg\\AriClient\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "OpiyOrg\\AriClient\\AriServiceProvider"
+      ]
     }
   },
   "scripts": {

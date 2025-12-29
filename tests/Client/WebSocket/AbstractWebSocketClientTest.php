@@ -76,34 +76,25 @@ class AbstractWebSocketClientTest extends TestCase
 
         $this->stasisApplicationInterface =
             new class () implements StasisApplicationInterface {
-                public function onAriEventChannelUserevent(
-                    ChannelUserevent $channelUserevent
-                ): void {
-                    if (((bool)$channelUserevent->getUserevent()->ThrowException) === true) {
-                        throw new InvalidArgumentException('jo');
-                    }
+            public function onAriEventChannelUserevent(
+                ChannelUserevent $channelUserevent
+            ): void {
+                if (((bool) $channelUserevent->getUserevent()->ThrowException) === true) {
+                    throw new InvalidArgumentException('jo');
                 }
+            }
 
-                public function thisIsNotRelevantButAValidMethod(): void
-                {
-                }
+            public function thisIsNotRelevantButAValidMethod(): void
+            {
+            }
             };
 
-        $this->loop = Loop::get();
-
-        $this->abstractWebSocketClient = new class (
-            $this->webSocketClientSettings,
-            $this->stasisApplicationInterface,
-            $this->loop,
-        ) extends AbstractWebSocketClient {
+        $this->abstractWebSocketClient = new class ($this->webSocketClientSettings, $this->stasisApplicationInterface, ) extends AbstractWebSocketClient {
             public function __construct(
                 WebSocketClientSettings $webSocketClientSettings,
-                StasisApplicationInterface $stasisApplication,
-                LoopInterface $loop
+                StasisApplicationInterface $stasisApplication
             ) {
                 parent::__construct($webSocketClientSettings, $stasisApplication);
-
-                $this->loop = $loop;
             }
 
             public function triggerCreateUri(): string
@@ -121,14 +112,6 @@ class AbstractWebSocketClientTest extends TestCase
             public function start(): void
             {
             }
-
-            /**
-             * @inheritDoc
-             */
-            public function getLoop(): LoopInterface
-            {
-                return $this->loop;
-            }
         };
     }
 
@@ -138,11 +121,6 @@ class AbstractWebSocketClientTest extends TestCase
             AbstractWebSocketClient::class,
             $this->abstractWebSocketClient
         );
-    }
-
-    public function testGetLoop(): void
-    {
-        $this->assertSame($this->loop, $this->abstractWebSocketClient->getLoop());
     }
 
     /**
@@ -184,27 +162,18 @@ class AbstractWebSocketClientTest extends TestCase
 
         $this->stasisApplicationInterface =
             new class () implements StasisApplicationInterface {
-                public function onAriEventThisIsNotAValidMethodName(
-                    ChannelUserevent $channelUserevent
-                ): void {
-                }
+            public function onAriEventThisIsNotAValidMethodName(
+                ChannelUserevent $channelUserevent
+            ): void {
+            }
             };
 
-        $this->loop = Loop::get();
-
-        $this->abstractWebSocketClient = new class (
-            $this->webSocketClientSettings,
-            $this->stasisApplicationInterface,
-            $this->loop,
-        ) extends AbstractWebSocketClient {
+        $this->abstractWebSocketClient = new class ($this->webSocketClientSettings, $this->stasisApplicationInterface, ) extends AbstractWebSocketClient {
             public function __construct(
                 WebSocketClientSettings $webSocketClientSettings,
-                StasisApplicationInterface $myApp,
-                LoopInterface $loop
+                StasisApplicationInterface $myApp
             ) {
                 parent::__construct($webSocketClientSettings, $myApp);
-
-                $this->loop = $loop;
             }
 
             /**
@@ -212,14 +181,6 @@ class AbstractWebSocketClientTest extends TestCase
              */
             public function start(): void
             {
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getLoop(): LoopInterface
-            {
-                return $this->loop;
             }
         };
 
@@ -283,23 +244,12 @@ class AbstractWebSocketClientTest extends TestCase
             }
         );
 
-        $this->abstractWebSocketClient = new class (
-            $webSocketClientSettings,
-            $this->createMock(StasisApplicationInterface::class)
-        ) extends AbstractWebSocketClient {
+        $this->abstractWebSocketClient = new class ($webSocketClientSettings, $this->createMock(StasisApplicationInterface::class)) extends AbstractWebSocketClient {
             /**
              * @inheritDoc
              */
             public function start(): void
             {
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getLoop(): LoopInterface
-            {
-                return Loop::get();
             }
         };
 
@@ -318,23 +268,12 @@ class AbstractWebSocketClientTest extends TestCase
         );
 
         $this->expectException(InvalidArgumentException::class);
-        $this->abstractWebSocketClient = new class (
-            $webSocketClientSettings,
-            $this->createMock(StasisApplicationInterface::class)
-        ) extends AbstractWebSocketClient {
+        $this->abstractWebSocketClient = new class ($webSocketClientSettings, $this->createMock(StasisApplicationInterface::class)) extends AbstractWebSocketClient {
             /**
              * @inheritDoc
              */
             public function start(): void
             {
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getLoop(): LoopInterface
-            {
-                return Loop::get();
             }
         };
     }
