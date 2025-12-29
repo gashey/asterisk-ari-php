@@ -85,6 +85,11 @@ class WebSocketClient extends AbstractWebSocketClient
             while (true) {
                 $frame = $client->recv();
                 if ($frame === false || $frame === null) {
+                    // Check for timeout error code (60 on macOS, 110 on Linux)
+                    if ($client->errCode === 60 || $client->errCode === 110) {
+                        continue;
+                    }
+
                     $this->logger->error(
                         sprintf(
                             "ARI Connection closed unexpectedly | Code -> '%s' | Message -> '%s'",

@@ -25,4 +25,17 @@ return [
     'wss_enabled' => (bool) env('ARI_WSS_ENABLED', false),
 
     'subscribe_all' => (bool) env('ARI_SUBSCRIBE_ALL', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Swoole WebSocket Client Settings
+    |--------------------------------------------------------------------------
+    |
+    | These settings are specific to the Swoole WebSocket client implementation.
+    |
+    */
+    'swoole' => [
+        'heartbeat_interval' => 30, // seconds
+        'timeout' => 60, // seconds
+    ],
 ];

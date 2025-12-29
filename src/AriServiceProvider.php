@@ -9,6 +9,7 @@ use OpiyOrg\AriClient\Client\Rest\Settings as RestSettings;
 use OpiyOrg\AriClient\Client\WebSocket\Settings as WebSocketSettings;
 use OpiyOrg\AriClient\Client\WebSocket\Factory as WebSocketFactory;
 use OpiyOrg\AriClient\Client\WebSocket\WebSocketClientInterface;
+use OpiyOrg\AriClient\Client\WebSocket\Swoole\Settings as SwooleSettings;
 
 class AriServiceProvider extends ServiceProvider
 {
@@ -53,9 +54,18 @@ class AriServiceProvider extends ServiceProvider
 
         $this->app->bind(WebSocketClientInterface::class, function ($app, $parameters) {
             $stasisApp = $parameters['stasisApplication'];
-            return WebSocketFactory::create(
+            $config = $app['config']['ari'];
+
+            $swooleSettings = null;
+            if (isset($config['swoole']) && is_array($config['swoole'])) {
+                $swooleSettings = new SwooleSettings();
+                $swooleSettings->setOptions($config['swoole']);
+            }
+
+            return WebSocketFactory::createSwoole(
                 $app->make(WebSocketSettings::class),
-                $stasisApp
+                $stasisApp,
+                $swooleSettings
             );
         });
     }
